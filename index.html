@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+
+<html lang="it-IT">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="DESCRIPTION" content="">
+<title>My Itasa</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+  <script type='text/javascript'>  
+    // Parses returned response and extracts  
+    // the title, links, and text of each news story.  
+    function top_stories(o){  
+      var items = o.query.results.item;  
+      var output = '';  
+      var no_items=items.length;  
+      for(var i=0;i<no_items;i++){  
+        var title = items[i].title;  
+        var link = items[i].link;  
+        var pubDate = items[i].pubDate;  
+        output += "<li><a href='" + link + "'>"+ title +"</a><span>" + pubDate + "</span></li>";  
+      }  
+      // Place news stories in div tag  
+      //document.getElementById('results').innerHTML = output;    
+      $("#results").append(output);
+    }  
+    </script>  
+    <style>
+        #results li span {padding: 5px; color: #333; font-style: italic; font-size: 11px;}
+    </style>
+
+  </head>  
+  <body>
+<div data-role="page" data-theme="c">
+      <div data-role="header" data-position="fixed"  data-theme="b">
+        <h1>My Itasa</h1>
+    </div>
+    <!-- Div tag for stories results -->  
+    <div  data-role="content">
+    <ul data-role="listview" data-inset="false" data-theme="d"  id='results' data-filter="true">
+    <!-- The YQL statment will be assigned to src. -->  
+    <script src='http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.italiansubs.net%2Findex.php%3Foption%3Dcom_rsssub%26type%3Dfavsub%26id%3D166795%26hash%3De5f211b18efb6748bee21cff06f0fc9a%22&format=json&diagnostics=true&callback=top_stories'></script>
+    </ul>
+    </div>
+    <div data-role="footer" data-position="fixed"  data-theme="b">
+      
+    </div>
+</div>
+  </body>  
+</html>  
