@@ -38,17 +38,23 @@
   <body>
 <div data-role="page" data-theme="c" id="itasa-page">
 	<script>
+//May need to use "Authorization" / "Authentication" instead ?option=com_myitasa&Itemid=22
 	$('#itasa-page').on('pageinit', function (event, ui) {
 	var username = "kivar";
 	var password = "trustno1";
 		$.ajax({
-			'url': 'http://www.italiansubs.net/index.php?option=com_myitasa&Itemid=22',
+			'url': 'http://www.italiansubs.net/index.php?option=com_myitasa',
 			'beforeSend': function(xhr) {
-			xhr.setRequestHeader("Authentication", "Basic " + encodeBase64(username + ":" + password) //May need to use "Authorization" instead
+			xhr.setRequestHeader("Authentication", "Basic " + btoa(username + ":" + password));
 			},
 		sucess: function(result) {
-			alert('done');
-		}
+			//alert('done');
+			var script = "<script src='http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.italiansubs.net%2Findex.php%3Foption%3Dcom_rsssub%26type%3Dfavsub%26id%3D166795%26hash%3De5f211b18efb6748bee21cff06f0fc9a%22&format=json&diagnostics=true&callback=top_stories'><\/script>";
+			$("#script").html(script);
+			}
+		//error: function(result) {
+		//	$("#script").html("User e password errate.");
+		//	}
 		});
 	});
 	</script>
@@ -57,10 +63,11 @@
     </div>
     <!-- Div tag for stories results -->  
     <div  data-role="content">
-    <ul data-role="listview" data-inset="false" data-theme="d"  id='results' data-filter="true">
-    <!-- The YQL statment will be assigned to src. -->  
-    <script src='http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fwww.italiansubs.net%2Findex.php%3Foption%3Dcom_rsssub%26type%3Dfavsub%26id%3D166795%26hash%3De5f211b18efb6748bee21cff06f0fc9a%22&format=json&diagnostics=true&callback=top_stories'></script>
-    </ul>
+		<ul data-role="listview" data-inset="false" data-theme="d"  id='results' data-filter="true">
+		<!-- The YQL statment will be assigned to src. -->  
+		</ul>
+		<div id="script">
+		</div>
     </div>
     <div data-role="footer" data-position="fixed"  data-theme="b">
       
