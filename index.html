@@ -37,6 +37,17 @@
   </head>  
   <body>
 <div data-role="page" data-theme="c">
+
+$.ajax({
+'url': 'http://host.com/action/',
+'otherSettings': 'othervalues',
+'beforeSend': function(xhr) {
+xhr.setRequestHeader("Authentication", "Basic " + encodeBase64(username + ":" + password) //May need to use "Authorization" instead
+},
+sucess: function(result) {
+alert('done');
+}
+});
       <div data-role="header" data-position="fixed"  data-theme="b">
         <h1>My Itasa</h1>
     </div>
