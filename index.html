@@ -41,11 +41,12 @@
 //May need to use "Authorization" / "Authentication" instead ?option=com_myitasa&Itemid=22
 	$('#itasa-page').on('pageinit', function (event, ui) {
 	var username = "kivar";
-	var password = "trustno1";
+	var passwd = "pwd";
 		$.ajax({
-			'url': 'http://www.italiansubs.net/index.php?option=com_myitasa',
+			'method' : 'POST',
+			'url': 'http://www.italiansubs.net/index.php?option=com_myitasa&Itemid=22',
 			'beforeSend': function(xhr) {
-			xhr.setRequestHeader("Authentication", "Basic " + btoa(username + ":" + password));
+			xhr.setRequestHeader("Authentication", "Basic " + btoa(username + ":" + passwd));
 			},
 		sucess: function(result) {
 			//alert('done');
